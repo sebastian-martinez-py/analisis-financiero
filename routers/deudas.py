@@ -7,46 +7,60 @@ from database.models import Deuda
 router = APIRouter(prefix="/api/deudas", tags=["deudas"])
 
 
+def validar_usuario(usuario: str) -> str:
+    usuario = usuario.strip()
+    if usuario not in ["Melissa", "Sebastian"]:
+        raise HTTPException(status_code=400, detail="El usuario debe ser Melissa o Sebastian")
+    return usuario
+
+
 class DeudaIn(BaseModel):
-    nombre:     str
-    saldo:      float
-    pago_min:   float
-    interes:    float = 0
+    usuario: str
+    nombre: str
+    saldo: float
+    pago_min: float
+    interes: float = 0
     estrategia: str = "bola"
+
 
 class PagoIn(BaseModel):
     monto: float
 
 
 @router.get("")
-def list_deudas(db: Session = Depends(get_db)):
-    return db.query(Deuda).all()
+def list_deudas(usuario: str, db: Session = Depends(get_db)):
+    usuario = validar_usuario(usuario)
+    return db.query(Deuda).filter(Deuda.usuario == usuario).all()
+
 
 @router.post("", status_code=201)
 def create_deuda(body: DeudaIn, db: Session = Depends(get_db)):
-    d = Deuda(**body.model_dump())
-    db.add(d)
+    body.usuario = validar_usuario(body.usuario)
+    deuda = Deuda(**body.model_dump())
+    db.add(deuda)
     db.commit()
-    db.refresh(d)
-    return d
+    db.refresh(deuda)
+    return deuda
 
-@router.post("/{deuda_id}/pago")
-def registrar_pago(deuda_id: int, body: PagoIn, db: Session = Depends(get_db)):
-    d = db.get(Deuda, deuda_id)
-    if not d:
-        raise HTTPException(404, "Deuda no encontrada")
-    interes_mensual = d.saldo * (d.interes / 100 / 12)
-    abono   = body.monto - interes_mensual
-    d.saldo = max(0, d.saldo - abono)
-    d.pagado += body.monto
-    db.commit()
-    db.refresh(d)
-    return d
 
 @router.delete("/{deuda_id}", status_code=204)
 def delete_deuda(deuda_id: int, db: Session = Depends(get_db)):
-    d = db.get(Deuda, deuda_id)
-    if not d:
-        raise HTTPException(404, "Deuda no encontrada")
-    db.delete(d)
+    deuda = db.get(Deuda, deuda_id)
+    if not deuda:
+        raise HTTPException(status_code=404, detail="Deuda no encontrada")
+    db.delete(deuda)
     db.commit()
+
+
+@router.post("/{deuda_id}/pagar")
+def pagar_deuda(deuda_id: int, body: PagoIn, db: Session = Depends(get_db)):
+    deuda = db.get(Deuda, deuda_id)
+    if not deuda:
+        raise HTTPException(status_code=404, detail="Deuda no encontrada")
+
+    deuda.pagado += body.monto
+    deuda.saldo = max(0, deuda.saldo - body.monto)
+
+    db.commit()
+    db.refresh(deuda)
+    return deuda

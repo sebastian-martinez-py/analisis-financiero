@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Finanzas 50/30/20</title>
+    <title>Wallet Personal</title>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;700&display=swap");
 
@@ -29,6 +29,7 @@
         padding: 0;
         box-sizing: border-box;
       }
+
       body {
         background: var(--bg);
         color: var(--text);
@@ -36,6 +37,49 @@
         display: flex;
         height: 100vh;
         overflow: hidden;
+      }
+
+      .login-screen {
+        position: fixed;
+        inset: 0;
+        background: linear-gradient(180deg, #0f1117 0%, #131827 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+      }
+
+      .login-card {
+        width: 100%;
+        max-width: 420px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 28px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+      }
+
+      .login-title {
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+
+      .login-sub {
+        color: var(--text3);
+        font-size: 13px;
+        margin-bottom: 22px;
+      }
+
+      .login-card .field {
+        margin-bottom: 14px;
+      }
+
+      .login-msg {
+        margin-top: 10px;
+        font-size: 12px;
+        color: var(--red);
+        min-height: 16px;
       }
 
       .sidebar {
@@ -47,23 +91,27 @@
         flex-direction: column;
         padding: 24px 0;
       }
+
       .logo {
         padding: 0 20px 24px;
         border-bottom: 1px solid var(--border);
         margin-bottom: 12px;
       }
+
       .logo h1 {
         font-family: var(--mono);
         font-size: 13px;
         color: var(--accent);
         letter-spacing: 1px;
       }
+
       .logo p {
         font-size: 11px;
         color: var(--text3);
         font-family: var(--mono);
         margin-top: 3px;
       }
+
       .nav-section {
         font-size: 10px;
         color: var(--text3);
@@ -72,6 +120,7 @@
         text-transform: uppercase;
         padding: 16px 20px 6px;
       }
+
       .nav-item {
         display: flex;
         align-items: center;
@@ -84,15 +133,18 @@
         font-family: var(--mono);
         transition: all 0.15s;
       }
+
       .nav-item:hover {
         color: var(--text);
         background: var(--surface2);
       }
+
       .nav-item.active {
         color: var(--accent);
         border-left-color: var(--accent);
         background: rgba(126, 232, 162, 0.06);
       }
+
       .sidebar-footer {
         margin-top: auto;
         padding: 16px 20px;
@@ -108,6 +160,7 @@
         flex-direction: column;
         overflow: hidden;
       }
+
       .topbar {
         height: 56px;
         min-height: 56px;
@@ -118,11 +171,13 @@
         padding: 0 28px;
         gap: 12px;
       }
+
       .topbar-title {
         flex: 1;
         font-size: 14px;
         font-weight: 500;
       }
+
       select {
         background: var(--surface2);
         border: 1px solid var(--border);
@@ -134,6 +189,7 @@
         cursor: pointer;
         outline: none;
       }
+
       select:focus {
         border-color: var(--accent);
       }
@@ -143,9 +199,11 @@
         overflow-y: auto;
         padding: 24px 28px;
       }
+
       .content::-webkit-scrollbar {
         width: 6px;
       }
+
       .content::-webkit-scrollbar-thumb {
         background: var(--border);
         border-radius: 3px;
@@ -154,14 +212,17 @@
       .view {
         display: none;
       }
+
       .view.active {
         display: block;
       }
+
       .chat-view {
         display: none;
         flex-direction: column;
         height: calc(100vh - 56px);
       }
+
       .chat-view.active {
         display: flex;
       }
@@ -172,6 +233,7 @@
         border-radius: var(--r);
         padding: 20px;
       }
+
       .card-title {
         font-size: 12px;
         font-family: var(--mono);
@@ -183,12 +245,14 @@
         justify-content: space-between;
         align-items: center;
       }
+
       .card-title a {
         font-size: 11px;
         color: var(--blue);
         cursor: pointer;
         text-decoration: none;
       }
+
       .card-title a:hover {
         text-decoration: underline;
       }
@@ -199,18 +263,14 @@
         gap: 14px;
         margin-bottom: 20px;
       }
+
       .row2 {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 14px;
         margin-bottom: 20px;
       }
-      .row3 {
-        display: grid;
-        grid-template-columns: 2fr 1fr;
-        gap: 14px;
-        margin-bottom: 20px;
-      }
+
       .gap {
         margin-bottom: 16px;
       }
@@ -223,6 +283,7 @@
         position: relative;
         overflow: hidden;
       }
+
       .stat-card::before {
         content: "";
         position: absolute;
@@ -230,44 +291,54 @@
         left: 0;
         right: 0;
         height: 2px;
-        border-radius: var(--r) var(--r) 0 0;
       }
+
       .stat-card.g::before {
         background: var(--accent);
       }
+
       .stat-card.b::before {
         background: var(--blue);
       }
+
       .stat-card.o::before {
         background: var(--orange);
       }
+
       .stat-card.r::before {
         background: var(--red);
       }
+
       .stat-label {
         font-size: 11px;
         color: var(--text3);
         font-family: var(--mono);
         text-transform: uppercase;
       }
+
       .stat-value {
         font-size: 24px;
         font-family: var(--mono);
         font-weight: 500;
         margin: 8px 0 4px;
       }
+
       .stat-value.g {
         color: var(--accent);
       }
+
       .stat-value.b {
         color: var(--blue);
       }
+
       .stat-value.o {
         color: var(--orange);
       }
+
       .stat-value.r {
         color: var(--red);
       }
+
       .stat-sub {
         font-size: 11px;
         color: var(--text3);
@@ -280,34 +351,42 @@
         padding: 20px;
         margin-bottom: 20px;
       }
+
       .form-row {
         display: grid;
         gap: 10px;
         align-items: end;
       }
+
       .form-row.cols-5 {
         grid-template-columns: 2fr 1fr 1fr 1fr auto;
       }
+
       .form-row.cols-4 {
         grid-template-columns: 1fr 1fr 1fr auto;
       }
+
       .form-row.cols-3 {
         grid-template-columns: 1fr 1fr auto;
       }
+
       .form-row.cols-6 {
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr auto;
       }
+
       .field {
         display: flex;
         flex-direction: column;
         gap: 5px;
       }
+
       .field label {
         font-size: 11px;
         color: var(--text3);
         font-family: var(--mono);
         text-transform: uppercase;
       }
+
       input,
       textarea {
         background: var(--surface);
@@ -321,12 +400,10 @@
         transition: border-color 0.15s;
         width: 100%;
       }
+
       input:focus,
       textarea:focus {
         border-color: var(--accent);
-      }
-      input::placeholder {
-        color: var(--text3);
       }
 
       .btn {
@@ -339,32 +416,39 @@
         transition: all 0.15s;
         white-space: nowrap;
       }
+
       .btn-primary {
         background: var(--accent);
         color: #0f1117;
         font-weight: 500;
       }
+
       .btn-primary:hover {
         background: #6dd690;
       }
+
       .btn-secondary {
         background: var(--surface2);
         border: 1px solid var(--border);
         color: var(--text2);
       }
+
       .btn-secondary:hover {
         border-color: var(--accent);
         color: var(--accent);
       }
+
       .btn-danger {
         background: rgba(240, 94, 126, 0.15);
         border: 1px solid var(--red);
         color: var(--red);
       }
+
       .btn-sm {
         padding: 4px 10px;
         font-size: 11px;
       }
+
       .btn:disabled {
         opacity: 0.4;
         cursor: not-allowed;
@@ -374,6 +458,7 @@
         width: 100%;
         border-collapse: collapse;
       }
+
       .tx-table th {
         font-family: var(--mono);
         font-size: 10px;
@@ -384,18 +469,18 @@
         padding: 8px 12px;
         border-bottom: 1px solid var(--border);
       }
+
       .tx-table td {
         padding: 10px 12px;
         font-size: 13px;
         border-bottom: 1px solid rgba(42, 47, 69, 0.5);
         vertical-align: middle;
       }
+
       .tx-table tr:last-child td {
         border-bottom: none;
       }
-      .tx-table tr:hover td {
-        background: rgba(255, 255, 255, 0.02);
-      }
+
       .badge {
         display: inline-block;
         padding: 2px 8px;
@@ -403,25 +488,31 @@
         font-size: 11px;
         font-family: var(--mono);
       }
+
       .badge-g {
         background: rgba(126, 232, 162, 0.12);
         color: var(--accent);
       }
+
       .badge-b {
         background: rgba(94, 196, 240, 0.12);
         color: var(--blue);
       }
+
       .badge-o {
         background: rgba(240, 160, 94, 0.12);
         color: var(--orange);
       }
+
       .badge-r {
         background: rgba(240, 94, 126, 0.12);
         color: var(--red);
       }
+
       .mono {
         font-family: var(--mono);
       }
+
       .del-btn {
         background: none;
         border: none;
@@ -431,6 +522,7 @@
         border-radius: 4px;
         font-size: 14px;
       }
+
       .del-btn:hover {
         color: var(--red);
         background: rgba(240, 94, 126, 0.1);
@@ -439,6 +531,7 @@
       .budget-section {
         margin-bottom: 14px;
       }
+
       .budget-label {
         display: flex;
         justify-content: space-between;
@@ -447,12 +540,14 @@
         font-family: var(--mono);
         margin-bottom: 5px;
       }
+
       .bar-track {
         height: 8px;
         background: var(--surface2);
         border-radius: 4px;
         overflow: hidden;
       }
+
       .bar-fill {
         height: 100%;
         border-radius: 4px;
@@ -466,12 +561,14 @@
         padding: 18px 20px;
         margin-bottom: 12px;
       }
+
       .goal-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin-bottom: 10px;
       }
+
       .progress-bar {
         height: 6px;
         background: var(--surface2);
@@ -479,6 +576,7 @@
         overflow: hidden;
         margin-bottom: 6px;
       }
+
       .progress-fill {
         height: 100%;
         background: var(--accent);
@@ -495,12 +593,15 @@
         margin-bottom: 8px;
         line-height: 1.5;
       }
+
       .rec-item.w {
         border-left-color: var(--orange);
       }
+
       .rec-item.d {
         border-left-color: var(--red);
       }
+
       .rec-item.i {
         border-left-color: var(--blue);
       }
@@ -512,6 +613,7 @@
         height: 100px;
         padding-top: 10px;
       }
+
       .trend-col {
         flex: 1;
         display: flex;
@@ -521,11 +623,13 @@
         height: 100%;
         justify-content: flex-end;
       }
+
       .trend-bar {
         width: 100%;
         border-radius: 3px 3px 0 0;
         min-height: 2px;
       }
+
       .trend-lbl {
         font-family: var(--mono);
         font-size: 9px;
@@ -540,22 +644,18 @@
         flex-direction: column;
         gap: 14px;
       }
-      .chat-messages::-webkit-scrollbar {
-        width: 6px;
-      }
-      .chat-messages::-webkit-scrollbar-thumb {
-        background: var(--border);
-        border-radius: 3px;
-      }
+
       .msg {
         display: flex;
         gap: 12px;
         max-width: 760px;
       }
+
       .msg.user {
         align-self: flex-end;
         flex-direction: row-reverse;
       }
+
       .msg-av {
         width: 32px;
         height: 32px;
@@ -566,12 +666,15 @@
         justify-content: center;
         font-size: 14px;
       }
+
       .msg.user .msg-av {
         background: rgba(126, 232, 162, 0.15);
       }
+
       .msg.bot .msg-av {
         background: rgba(94, 196, 240, 0.15);
       }
+
       .msg-bubble {
         background: var(--surface);
         border: 1px solid var(--border);
@@ -581,20 +684,24 @@
         line-height: 1.6;
         max-width: 600px;
       }
+
       .msg.user .msg-bubble {
         background: rgba(126, 232, 162, 0.08);
         border-color: rgba(126, 232, 162, 0.2);
       }
+
       .chat-input-area {
         padding: 14px 28px 18px;
         border-top: 1px solid var(--border);
         background: var(--surface);
       }
+
       .chat-row {
         display: flex;
         gap: 10px;
         align-items: flex-end;
       }
+
       .chat-row textarea {
         flex: 1;
         resize: none;
@@ -602,6 +709,7 @@
         max-height: 110px;
         line-height: 1.5;
       }
+
       .dot {
         display: inline-block;
         width: 6px;
@@ -611,12 +719,15 @@
         animation: pulse 1.2s infinite;
         margin: 0 2px;
       }
+
       .dot:nth-child(2) {
         animation-delay: 0.2s;
       }
+
       .dot:nth-child(3) {
         animation-delay: 0.4s;
       }
+
       @keyframes pulse {
         0%,
         80%,
@@ -639,17 +750,6 @@
         font-family: var(--mono);
         font-size: 13px;
         z-index: 999;
-        animation: slideIn 0.2s ease;
-      }
-      @keyframes slideIn {
-        from {
-          transform: translateX(20px);
-          opacity: 0;
-        }
-        to {
-          transform: translateX(0);
-          opacity: 1;
-        }
       }
 
       .empty {
@@ -668,6 +768,7 @@
         border-bottom: 1px solid var(--border);
         font-size: 13px;
       }
+
       .cfg-row label {
         font-size: 11px;
         color: var(--text3);
@@ -675,6 +776,7 @@
         display: block;
         margin-top: 2px;
       }
+
       .moneda-opt {
         padding: 4px 10px;
         border-radius: 6px;
@@ -685,19 +787,60 @@
         color: var(--text2);
         margin-left: 6px;
       }
+
       .moneda-opt.active {
         border-color: var(--accent);
         color: var(--accent);
         background: rgba(126, 232, 162, 0.08);
       }
+
+      @media (max-width: 1200px) {
+        .stat-grid,
+        .row2 {
+          grid-template-columns: 1fr;
+        }
+
+        .sidebar {
+          width: 190px;
+          min-width: 190px;
+        }
+      }
     </style>
   </head>
   <body>
+    <div class="login-screen" id="login-screen">
+      <div class="login-card">
+        <div class="login-title">Bienvenido a Wallet</div>
+        <div class="login-sub">Ingresa con tu usuario personal.</div>
+
+        <div class="field">
+          <label>Usuario</label>
+          <input id="login-user" placeholder="Melissa o Sebastian" />
+        </div>
+
+        <div class="field">
+          <label>Contraseña</label>
+          <input id="login-pass" type="password" placeholder="********" />
+        </div>
+
+        <button
+          class="btn btn-primary"
+          style="width: 100%; margin-top: 8px"
+          onclick="login()"
+        >
+          Ingresar
+        </button>
+
+        <div class="login-msg" id="login-msg"></div>
+      </div>
+    </div>
+
     <nav class="sidebar">
       <div class="logo">
         <h1>💹 Wallet</h1>
-        <p>50 · 30 · 20</p>
+        <p id="welcome-user">Resumen personal</p>
       </div>
+
       <div class="nav-section">Principal</div>
       <div class="nav-item active" onclick="go('dashboard')">
         ◈ &nbsp;Dashboard
@@ -705,17 +848,22 @@
       <div class="nav-item" onclick="go('gastos')">⊕ &nbsp;Gastos</div>
       <div class="nav-item" onclick="go('ahorros')">◎ &nbsp;Ahorros</div>
       <div class="nav-item" onclick="go('deudas')">◐ &nbsp;Deudas</div>
+
       <div class="nav-section">Análisis</div>
       <div class="nav-item" onclick="go('tendencias')">∿ &nbsp;Tendencias</div>
       <div class="nav-item" onclick="go('chat')">⌬ &nbsp;Asesor IA</div>
+
       <div class="nav-section">Ajustes</div>
       <div class="nav-item" onclick="go('config')">⚙ &nbsp;Configuración</div>
+      <div class="nav-item" onclick="logout()">⇠ &nbsp;Salir</div>
+
       <div class="sidebar-footer" id="sb-mon">₡ Colón</div>
     </nav>
 
     <div class="main">
       <div class="topbar">
         <span class="topbar-title" id="view-title">Dashboard</span>
+
         <select id="sel-mes" onchange="cambiarPeriodo()">
           <option value="1">Enero</option>
           <option value="2">Febrero</option>
@@ -730,6 +878,7 @@
           <option value="11">Noviembre</option>
           <option value="12">Diciembre</option>
         </select>
+
         <select id="sel-anio" onchange="cambiarPeriodo()">
           <option value="2025">2025</option>
           <option value="2026">2026</option>
@@ -740,32 +889,54 @@
       <div class="content view active" id="view-dashboard">
         <div class="stat-grid">
           <div class="stat-card g">
-            <div class="stat-label">Ingresos</div>
+            <div class="stat-label">Ingreso mensual</div>
             <div class="stat-value g" id="d-ing">—</div>
-            <div class="stat-sub">este mes</div>
+            <div class="stat-sub" id="d-ing-s">—</div>
           </div>
           <div class="stat-card b">
-            <div class="stat-label">Necesidades (50%)</div>
+            <div class="stat-label">Necesidades totales</div>
             <div class="stat-value b" id="d-nec">—</div>
             <div class="stat-sub" id="d-nec-s">—</div>
           </div>
           <div class="stat-card o">
-            <div class="stat-label">Deseos (30%)</div>
+            <div class="stat-label">Ocio sugerido</div>
             <div class="stat-value o" id="d-des">—</div>
             <div class="stat-sub" id="d-des-s">—</div>
           </div>
           <div class="stat-card r">
-            <div class="stat-label">Ahorro/Deuda (20%)</div>
-            <div class="stat-value r" id="d-aho">—</div>
-            <div class="stat-sub" id="d-aho-s">—</div>
+            <div class="stat-label">Ahorro sugerido</div>
+            <div class="stat-value r" id="d-aho-sug">—</div>
+            <div class="stat-sub" id="d-aho-sug-s">—</div>
           </div>
         </div>
-        <div class="row3">
+
+        <div class="stat-grid">
+          <div class="stat-card g">
+            <div class="stat-label">Ahorro acumulado</div>
+            <div class="stat-value g" id="d-ahorro-real">—</div>
+            <div class="stat-sub" id="d-ahorro-real-s">—</div>
+          </div>
+          <div class="stat-card r">
+            <div class="stat-label">Deuda total</div>
+            <div class="stat-value r" id="d-deuda-real">—</div>
+            <div class="stat-sub" id="d-deuda-real-s">—</div>
+          </div>
+          <div class="stat-card b">
+            <div class="stat-label">Balance del mes</div>
+            <div class="stat-value b" id="d-bal">—</div>
+            <div class="stat-sub" id="d-bal-s">—</div>
+          </div>
+          <div class="stat-card o">
+            <div class="stat-label">Disponible real</div>
+            <div class="stat-value o" id="d-disponible">—</div>
+            <div class="stat-sub" id="d-disponible-s">—</div>
+          </div>
+        </div>
+
+        <div class="row2">
           <div class="card">
-            <div class="card-title">
-              Distribución 50/30/20
-              <a onclick="go('gastos')">+ agregar gasto</a>
-            </div>
+            <div class="card-title">Distribución financiera</div>
+
             <div class="budget-section">
               <div class="budget-label">
                 <span>🟢 Necesidades</span><span id="bar-nec-lbl">—</span>
@@ -778,9 +949,10 @@
                 ></div>
               </div>
             </div>
+
             <div class="budget-section">
               <div class="budget-label">
-                <span>🔵 Deseos</span><span id="bar-des-lbl">—</span>
+                <span>🔵 Ocio</span><span id="bar-des-lbl">—</span>
               </div>
               <div class="bar-track">
                 <div
@@ -790,37 +962,53 @@
                 ></div>
               </div>
             </div>
+
             <div class="budget-section">
               <div class="budget-label">
-                <span>🟠 Ahorro/Deuda</span><span id="bar-aho-lbl">—</span>
+                <span>🟠 Ahorro</span><span id="bar-ahorro-lbl">—</span>
               </div>
               <div class="bar-track">
                 <div
                   class="bar-fill"
                   style="background: var(--orange); width: 0%"
-                  id="bar-aho"
+                  id="bar-ahorro"
                 ></div>
               </div>
             </div>
-            <div style="margin-top: 20px">
-              <div class="card-title">Últimos gastos</div>
-              <table class="tx-table">
-                <thead>
-                  <tr>
-                    <th>Descripción</th>
-                    <th>Categoría</th>
-                    <th>Monto</th>
-                    <th>Fecha</th>
-                  </tr>
-                </thead>
-                <tbody id="d-ultimos"></tbody>
-              </table>
+
+            <div class="budget-section">
+              <div class="budget-label">
+                <span>🔴 Deuda</span><span id="bar-deuda-lbl">—</span>
+              </div>
+              <div class="bar-track">
+                <div
+                  class="bar-fill"
+                  style="background: var(--red); width: 0%"
+                  id="bar-deuda"
+                ></div>
+              </div>
             </div>
           </div>
+
           <div class="card">
-            <div class="card-title">Recomendaciones</div>
+            <div class="card-title">Alertas y recomendaciones</div>
             <div id="d-recs"><div class="empty">Cargando...</div></div>
           </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Últimos gastos</div>
+          <table class="tx-table">
+            <thead>
+              <tr>
+                <th>Descripción</th>
+                <th>Categoría</th>
+                <th>Monto</th>
+                <th>Fecha</th>
+              </tr>
+            </thead>
+            <tbody id="d-ultimos"></tbody>
+          </table>
         </div>
       </div>
 
@@ -831,20 +1019,18 @@
           </div>
           <div class="form-row cols-5">
             <div class="field">
-              <label>Descripción</label
-              ><input id="g-desc" placeholder="Ej: Mercado" />
+              <label>Descripción</label>
+              <input id="g-desc" placeholder="Ej: Mercado" />
             </div>
             <div class="field">
-              <label>Monto</label
-              ><input id="g-monto" type="number" min="0" placeholder="0" />
+              <label>Monto</label>
+              <input id="g-monto" type="number" min="0" placeholder="0" />
             </div>
             <div class="field">
               <label>Categoría</label>
               <select id="g-cat">
-                <option value="Necesidades">🟢 Necesidades (50%)</option>
-                <option value="Deseos">🔵 Deseos (30%)</option>
-                <option value="Ahorro">🟠 Ahorro (20%)</option>
-                <option value="Deuda">🔴 Pago de deuda</option>
+                <option value="Necesidades">🟢 Necesidades</option>
+                <option value="Ocio">🔵 Ocio</option>
               </select>
             </div>
             <div class="field">
@@ -873,10 +1059,9 @@
             </button>
           </div>
         </div>
+
         <div class="card">
-          <div class="card-title">
-            Gastos del mes <a onclick="exportarCSV()">↓ CSV</a>
-          </div>
+          <div class="card-title">Gastos del mes</div>
           <table class="tx-table">
             <thead>
               <tr>
@@ -903,43 +1088,45 @@
           </div>
           <div class="form-row cols-5">
             <div class="field">
-              <label>Nombre</label
-              ><input id="a-nombre" placeholder="Viaje, Emergencia..." />
+              <label>Nombre</label>
+              <input id="a-nombre" placeholder="Viaje, Emergencia..." />
             </div>
             <div class="field">
-              <label>Meta total</label
-              ><input id="a-meta" type="number" min="0" placeholder="0" />
+              <label>Meta total</label>
+              <input id="a-meta" type="number" min="0" placeholder="0" />
             </div>
             <div class="field">
-              <label>Monto inicial</label
-              ><input id="a-inicial" type="number" min="0" placeholder="0" />
+              <label>Monto inicial</label>
+              <input id="a-inicial" type="number" min="0" placeholder="0" />
             </div>
             <div class="field">
-              <label>Aporte mensual</label
-              ><input id="a-mensual" type="number" min="0" placeholder="0" />
+              <label>Aporte mensual</label>
+              <input id="a-mensual" type="number" min="0" placeholder="0" />
             </div>
             <button class="btn btn-primary" onclick="agregarAhorro()">
               + Crear
             </button>
           </div>
         </div>
+
         <div id="ahorros-list"></div>
+
         <div class="quick-form" style="margin-top: 16px">
           <div class="card-title" style="margin-bottom: 14px">
             Registrar aporte
           </div>
           <div class="form-row cols-4">
             <div class="field">
-              <label>Meta</label
-              ><select id="ap-sel"></select>
+              <label>Meta</label>
+              <select id="ap-sel"></select>
             </div>
             <div class="field">
-              <label>Monto</label
-              ><input id="ap-monto" type="number" min="0" placeholder="0" />
+              <label>Monto</label>
+              <input id="ap-monto" type="number" min="0" placeholder="0" />
             </div>
             <div class="field">
-              <label>Nota</label
-              ><input id="ap-nota" placeholder="Descripción..." />
+              <label>Nota</label>
+              <input id="ap-nota" placeholder="Descripción..." />
             </div>
             <button class="btn btn-primary" onclick="registrarAporte()">
               + Aportar
@@ -949,26 +1136,55 @@
       </div>
 
       <div class="content view" id="view-deudas">
+        <!-- Panel distribucion con deuda -->
+        <div id="deuda-panel" style="display: none; margin-bottom: 16px">
+          <div
+            class="stat-grid"
+            style="grid-template-columns: repeat(4, 1fr); margin-bottom: 0"
+          >
+            <div class="stat-card r">
+              <div class="stat-label">Pago minimo total</div>
+              <div class="stat-value r" id="dp-pago-min">--</div>
+              <div class="stat-sub">entre todas las deudas/mes</div>
+            </div>
+            <div class="stat-card b">
+              <div class="stat-label">Para ocio</div>
+              <div class="stat-value b" id="dp-ocio">--</div>
+              <div class="stat-sub">despues de necesidades y deudas</div>
+            </div>
+            <div class="stat-card g">
+              <div class="stat-label">Para ahorro</div>
+              <div class="stat-value g" id="dp-ahorro">--</div>
+              <div class="stat-sub">despues de necesidades y deudas</div>
+            </div>
+            <div class="stat-card o">
+              <div class="stat-label">Libre sin asignar</div>
+              <div class="stat-value o" id="dp-libre">--</div>
+              <div class="stat-sub">sobrante del mes</div>
+            </div>
+          </div>
+        </div>
+
         <div class="quick-form gap">
           <div class="card-title" style="margin-bottom: 14px">
             Agregar deuda
           </div>
           <div class="form-row cols-6">
             <div class="field">
-              <label>Nombre</label
-              ><input id="deu-nombre" placeholder="Tarjeta..." />
+              <label>Nombre</label>
+              <input id="deu-nombre" placeholder="Tarjeta..." />
             </div>
             <div class="field">
-              <label>Saldo actual</label
-              ><input id="deu-saldo" type="number" min="0" placeholder="0" />
+              <label>Saldo actual</label>
+              <input id="deu-saldo" type="number" min="0" placeholder="0" />
             </div>
             <div class="field">
-              <label>Pago mínimo</label
-              ><input id="deu-pago" type="number" min="0" placeholder="0" />
+              <label>Pago mínimo</label>
+              <input id="deu-pago" type="number" min="0" placeholder="0" />
             </div>
             <div class="field">
-              <label>Interés anual %</label
-              ><input id="deu-int" type="number" min="0" placeholder="0" />
+              <label>Interés anual %</label>
+              <input id="deu-int" type="number" min="0" placeholder="0" />
             </div>
             <div class="field">
               <label>Estrategia</label>
@@ -982,20 +1198,22 @@
             </button>
           </div>
         </div>
+
         <div id="deudas-list"></div>
       </div>
 
       <div class="content view" id="view-tendencias">
         <div class="row2">
           <div class="card">
-            <div class="card-title">Gastos últimos 6 meses</div>
-            <div class="trend-chart" id="trend-chart"></div>
+            <div class="card-title">Ahorro proyectado</div>
+            <div class="trend-chart" id="ahorro-chart"></div>
           </div>
           <div class="card">
-            <div class="card-title">Por subcategoría</div>
-            <div id="cat-breakdown"></div>
+            <div class="card-title">Deuda proyectada</div>
+            <div class="trend-chart" id="deuda-chart"></div>
           </div>
         </div>
+
         <div class="card">
           <div class="card-title">Histórico anual</div>
           <div style="overflow-x: auto">
@@ -1005,8 +1223,8 @@
                   <th>Mes</th>
                   <th>Ingresos</th>
                   <th>Necesidades</th>
-                  <th>Deseos</th>
-                  <th>Ahorro/Deuda</th>
+                  <th>Ocio</th>
+                  <th>Ahorro/otros</th>
                   <th>Balance</th>
                 </tr>
               </thead>
@@ -1021,18 +1239,17 @@
           <div class="msg bot">
             <div class="msg-av">🤖</div>
             <div class="msg-bubble">
-              ¡Hola! Soy tu asesor financiero con acceso a tus datos reales.<br /><br />
-              Puedo ayudarte con análisis de gastos, estrategias de ahorro,
-              manejo de deudas y proyecciones del presupuesto 50/30/20.<br /><br />
-              ¿En qué te puedo ayudar hoy?
+              Hola. Soy tu asesor financiero personal y usaré únicamente los
+              datos del usuario activo.
             </div>
           </div>
         </div>
+
         <div class="chat-input-area">
           <div class="chat-row">
             <textarea
               id="chat-in"
-              placeholder="Escribí tu consulta... (Enter para enviar)"
+              placeholder="Escribí tu consulta..."
               rows="1"
               onkeydown="chatKey(event)"
             ></textarea>
@@ -1047,6 +1264,7 @@
         <div style="max-width: 580px">
           <div class="card gap">
             <div class="card-title">General</div>
+
             <div class="cfg-row">
               <div>
                 <div>Moneda</div>
@@ -1064,10 +1282,11 @@
                 >
               </div>
             </div>
+
             <div class="cfg-row">
               <div>
                 <div>Ingreso del mes</div>
-                <label>Para calcular los % 50/30/20</label>
+                <label>Base para cálculo automático</label>
               </div>
               <input
                 id="cfg-ing"
@@ -1078,45 +1297,39 @@
               />
             </div>
           </div>
+
           <div class="card gap">
             <div class="card-title">Facturas fijas</div>
             <div id="facturas-list" style="margin-bottom: 12px"></div>
             <div class="form-row cols-3">
               <div class="field">
-                <label>Nombre</label
-                ><input id="f-nombre" placeholder="Luz, Agua..." />
+                <label>Nombre</label>
+                <input id="f-nombre" placeholder="Luz, Agua..." />
               </div>
               <div class="field">
-                <label>Monto</label
-                ><input id="f-monto" type="number" min="0" placeholder="0" />
+                <label>Monto</label>
+                <input id="f-monto" type="number" min="0" placeholder="0" />
               </div>
               <button class="btn btn-secondary" onclick="agregarFactura()">
                 + Agregar
               </button>
             </div>
           </div>
-          <div class="card">
-            <div class="card-title" style="color: var(--red)">
-              Zona peligrosa
-            </div>
-            <p
-              style="font-size: 13px; color: var(--text3); margin-bottom: 14px"
-            >
-              Esta acción no se puede deshacer.
-            </p>
-            <button class="btn btn-danger" onclick="borrarTodo()">
-              🗑 Borrar todos los datos
-            </button>
-          </div>
         </div>
       </div>
     </div>
 
     <script>
+      const USERS = {
+        Melissa: "Meli1985",
+        Sebastian: "Coco197209",
+      };
+
       const now = new Date();
       let mes = now.getMonth() + 1;
       let anio = now.getFullYear();
       let moneda = "₡";
+      let usuario = localStorage.getItem("usuario") || "";
       let chatHistory = [];
 
       const MESES = [
@@ -1134,6 +1347,7 @@
         "Nov",
         "Dic",
       ];
+
       const NAMES = {
         dashboard: "Dashboard",
         gastos: "Gastos",
@@ -1146,8 +1360,6 @@
 
       const fmt = (n) => moneda + (n || 0).toLocaleString("es-CR");
       const $ = (id) => document.getElementById(id);
-      const pct = (x, total) =>
-        total > 0 ? Math.min(100, Math.round((x / total) * 100)) : 0;
 
       async function api(method, path, body) {
         const opts = {
@@ -1170,17 +1382,36 @@
         el.style.borderColor = ok ? "var(--accent)" : "var(--red)";
         el.textContent = msg;
         document.body.appendChild(el);
-        setTimeout(() => el.remove(), 2800);
+        setTimeout(() => el.remove(), 2600);
       }
 
       function badgeCat(cat) {
         const map = {
           Necesidades: "badge-g",
-          Deseos: "badge-b",
-          Ahorro: "badge-o",
-          Deuda: "badge-r",
+          Ocio: "badge-b",
         };
         return `<span class="badge ${map[cat] || ""}">${cat}</span>`;
+      }
+
+      function login() {
+        const u = $("login-user").value.trim();
+        const p = $("login-pass").value;
+
+        if (!USERS[u] || USERS[u] !== p) {
+          $("login-msg").textContent = "Usuario o contraseña incorrectos.";
+          return;
+        }
+
+        usuario = u;
+        localStorage.setItem("usuario", usuario);
+        $("login-screen").style.display = "none";
+        $("welcome-user").textContent = `Sesión: ${usuario}`;
+        initAfterLogin();
+      }
+
+      function logout() {
+        localStorage.removeItem("usuario");
+        location.reload();
       }
 
       function go(v) {
@@ -1190,12 +1421,15 @@
         document
           .querySelectorAll(".nav-item")
           .forEach((e) => e.classList.remove("active"));
+
         const el = $("view-" + v);
         if (el) el.classList.add("active");
+
         document
           .querySelector(`.nav-item[onclick*="'${v}'"]`)
           ?.classList.add("active");
         $("view-title").textContent = NAMES[v] || v;
+
         const refresh = {
           dashboard: loadDashboard,
           gastos: loadGastos,
@@ -1204,6 +1438,7 @@
           tendencias: loadTendencias,
           config: loadConfig,
         };
+
         if (refresh[v]) refresh[v]();
       }
 
@@ -1216,39 +1451,76 @@
 
       async function loadDashboard() {
         try {
-          const r = await api("GET", `/api/resumen?mes=${mes}&anio=${anio}`);
+          const r = await api(
+            "GET",
+            `/api/resumen?usuario=${encodeURIComponent(usuario)}&mes=${mes}&anio=${anio}`,
+          );
+
           $("d-ing").textContent = fmt(r.ingreso);
-          $("d-nec").textContent = fmt(r.necesidades);
-          $("d-des").textContent = fmt(r.deseos);
-          $("d-aho").textContent = fmt(r.ahorro_deuda);
+          $("d-ing-s").textContent = `${usuario} · ${MESES[mes]} ${anio}`;
+
+          $("d-nec").textContent = fmt(r.necesidades_totales);
           $("d-nec-s").textContent =
-            pct(r.necesidades, r.ingreso) + "% — meta 50%";
-          $("d-des-s").textContent = pct(r.deseos, r.ingreso) + "% — meta 30%";
-          $("d-aho-s").textContent =
-            pct(r.ahorro_deuda, r.ingreso) + "% — meta 20%";
-          const mn = r.ingreso * 0.5,
-            md = r.ingreso * 0.3,
-            ma = r.ingreso * 0.2;
-          $("bar-nec").style.width = pct(r.necesidades, mn) + "%";
-          $("bar-des").style.width = pct(r.deseos, md) + "%";
-          $("bar-aho").style.width = pct(r.ahorro_deuda, ma) + "%";
+            `fijas ${fmt(r.necesidades_fijas)} · ${r.ratio_necesidades}% del ingreso`;
+
+          $("d-des").textContent = fmt(r.sugerido_ocio);
+          $("d-des-s").textContent = `gasto real en ocio ${fmt(r.deseos)}`;
+
+          $("d-aho-sug").textContent = fmt(r.sugerido_ahorro);
+          $("d-aho-sug-s").textContent =
+            `ahorro del mes ${fmt(r.ahorro_aportes_mes)}`;
+
+          $("d-ahorro-real").textContent = fmt(r.ahorro_total_actual);
+          $("d-ahorro-real-s").textContent = `acumulado total`;
+
+          $("d-deuda-real").textContent = fmt(r.deuda_total_actual);
+          $("d-deuda-real-s").textContent = `saldo pendiente`;
+
+          $("d-bal").textContent =
+            `${r.sobrante >= 0 ? "+" : ""}${fmt(r.sobrante)}`;
+          $("d-bal").style.color =
+            r.sobrante >= 0 ? "var(--accent)" : "var(--red)";
+          $("d-bal-s").textContent =
+            r.sobrante >= 0 ? "balance positivo" : "balance negativo";
+
+          $("d-disponible").textContent = fmt(r.restante_para_distribuir);
+          $("d-disponible-s").textContent = "después de necesidades";
+
+          $("bar-nec").style.width = `${Math.min(100, r.ratio_necesidades)}%`;
+          $("bar-des").style.width =
+            `${Math.min(100, r.sugerido_ocio > 0 ? (r.deseos / r.sugerido_ocio) * 100 : 0)}%`;
+          $("bar-ahorro").style.width =
+            `${Math.min(100, r.sugerido_ahorro > 0 ? (r.ahorro_aportes_mes / r.sugerido_ahorro) * 100 : 0)}%`;
+          $("bar-deuda").style.width = `${Math.min(100, r.ratio_deuda)}%`;
+
           $("bar-nec-lbl").textContent =
-            `${fmt(r.necesidades)} / meta ${fmt(mn)}`;
-          $("bar-des-lbl").textContent = `${fmt(r.deseos)} / meta ${fmt(md)}`;
-          $("bar-aho-lbl").textContent =
-            `${fmt(r.ahorro_deuda)} / meta ${fmt(ma)}`;
+            `${fmt(r.necesidades_totales)} del ingreso`;
+          $("bar-des-lbl").textContent =
+            `${fmt(r.deseos)} / sugerido ${fmt(r.sugerido_ocio)}`;
+          $("bar-ahorro-lbl").textContent =
+            `${fmt(r.ahorro_aportes_mes)} / sugerido ${fmt(r.sugerido_ahorro)}`;
+          $("bar-deuda-lbl").textContent = `saldo ${fmt(r.deuda_total_actual)}`;
+
           const ultimos = [...r.gastos]
             .sort((a, b) => (b.fecha < a.fecha ? -1 : 1))
-            .slice(0, 5);
+            .slice(0, 6);
+
           $("d-ultimos").innerHTML =
             ultimos.length === 0
               ? '<tr><td colspan="4" style="text-align:center;color:var(--text3);padding:20px;font-size:12px">Sin gastos este mes</td></tr>'
               : ultimos
                   .map(
-                    (g) =>
-                      `<tr><td>${g.desc}</td><td>${badgeCat(g.cat)}</td><td class="mono" style="color:var(--red)">-${fmt(g.monto)}</td><td class="mono" style="color:var(--text3);font-size:11px">${g.fecha}</td></tr>`,
+                    (g) => `
+                  <tr>
+                    <td>${g.desc}</td>
+                    <td>${badgeCat(g.cat)}</td>
+                    <td class="mono" style="color:var(--red)">-${fmt(g.monto)}</td>
+                    <td class="mono" style="color:var(--text3);font-size:11px">${g.fecha}</td>
+                  </tr>
+                `,
                   )
                   .join("");
+
           renderRecs(r);
         } catch (e) {
           toast("Error: " + e.message, false);
@@ -1257,57 +1529,80 @@
 
       function renderRecs(r) {
         const recs = [];
-        const p = (x) =>
-          r.ingreso > 0 ? Math.round((x / r.ingreso) * 100) : 0;
+
         if (r.ingreso === 0) {
           $("d-recs").innerHTML =
-            '<div class="empty">Configurá tus ingresos en ⚙ Configuración</div>';
+            '<div class="empty">Configurá tus ingresos primero en Configuración.</div>';
           return;
         }
-        const pn = p(r.necesidades),
-          pd = p(r.deseos),
-          pa = p(r.ahorro_deuda);
-        if (pn > 55)
+
+        if (r.ratio_necesidades > 70) {
           recs.push({
             t: "d",
-            txt: `⚠️ Necesidades en <b>${pn}%</b> — supera el 50%.`,
+            txt: `⚠️ Tus necesidades consumen <b>${r.ratio_necesidades}%</b> del ingreso. Hay poco margen libre.`,
           });
-        else if (pn < 45 && r.necesidades > 0)
+        } else {
           recs.push({
             t: "",
-            txt: `✅ Necesidades en ${pn}% — dentro del objetivo.`,
+            txt: `✅ Tus necesidades actuales son <b>${fmt(r.necesidades_totales)}</b>.`,
           });
-        if (pd > 35)
+        }
+
+        recs.push({
+          t: "i",
+          txt: `💡 Después de cubrir necesidades, tu distribución sugerida es <b>${fmt(r.sugerido_ocio)}</b> para ocio y <b>${fmt(r.sugerido_ahorro)}</b> para ahorro.`,
+        });
+
+        if (r.deseos > r.sugerido_ocio) {
           recs.push({
             t: "w",
-            txt: `💡 Deseos en <b>${pd}%</b> — meta es 30%.`,
+            txt: `🔵 Tus deseos están por encima de lo sugerido.`,
           });
-        if (pa < 15 && r.ingreso > 0)
-          recs.push({ t: "w", txt: `💰 Solo ahorrás ${pa}%. Meta: 20%.` });
-        if (r.sobrante > 0)
+        }
+
+        if (r.ahorro_aportes_mes < r.sugerido_ahorro) {
+          recs.push({
+            t: "w",
+            txt: `🟠 Tu ahorro del mes todavía está por debajo de la meta sugerida.`,
+          });
+        }
+
+        if (r.deuda_total_actual > 0) {
+          recs.push({
+            t: "d",
+            txt: `🔴 Tu deuda pendiente actual es <b>${fmt(r.deuda_total_actual)}</b>.`,
+          });
+        }
+
+        if (r.sobrante > 0) {
           recs.push({
             t: "i",
-            txt: `💵 Te sobran <b>${fmt(r.sobrante)}</b> sin asignar.`,
+            txt: `💵 Aún te quedan <b>${fmt(r.sobrante)}</b> disponibles este mes.`,
           });
-        if (recs.length === 0)
+        } else if (r.sobrante < 0) {
           recs.push({
-            t: "",
-            txt: "🌟 ¡Todo va bien! Tu 50/30/20 está en orden.",
+            t: "d",
+            txt: `⚠️ Tu balance está en negativo por <b>${fmt(Math.abs(r.sobrante))}</b>.`,
           });
+        }
+
         $("d-recs").innerHTML = recs
-          .map((r2) => `<div class="rec-item ${r2.t}">${r2.txt}</div>`)
+          .map((x) => `<div class="rec-item ${x.t}">${x.txt}</div>`)
           .join("");
       }
 
       async function agregarGasto() {
         const desc = $("g-desc").value.trim();
         const monto = parseFloat($("g-monto").value);
+
         if (!desc || !monto || monto <= 0) {
           toast("Completá descripción y monto", false);
           return;
         }
+
         try {
           await api("POST", "/api/gastos", {
+            usuario,
             desc,
             monto,
             cat: $("g-cat").value,
@@ -1315,10 +1610,12 @@
             mes,
             anio,
           });
+
           $("g-desc").value = "";
           $("g-monto").value = "";
           toast("✅ Gasto registrado");
           loadGastos();
+          loadDashboard();
         } catch (e) {
           toast(e.message, false);
         }
@@ -1326,21 +1623,27 @@
 
       async function loadGastos() {
         try {
-          const gs = await api("GET", `/api/gastos?mes=${mes}&anio=${anio}`);
+          const gs = await api(
+            "GET",
+            `/api/gastos?usuario=${encodeURIComponent(usuario)}&mes=${mes}&anio=${anio}`,
+          );
           const sorted = gs.sort((a, b) => (b.fecha < a.fecha ? -1 : 1));
+
           $("gastos-empty").style.display =
             sorted.length === 0 ? "block" : "none";
+
           $("gastos-body").innerHTML = sorted
             .map(
               (g) => `
-      <tr>
-        <td class="mono" style="font-size:11px;color:var(--text3)">${g.fecha}</td>
-        <td>${g.desc}</td>
-        <td style="font-size:12px;color:var(--text2)">${g.subcat}</td>
-        <td>${badgeCat(g.cat)}</td>
-        <td class="mono" style="color:var(--red)">-${fmt(g.monto)}</td>
-        <td><button class="del-btn" onclick="delGasto(${g.id})">✕</button></td>
-      </tr>`,
+            <tr>
+              <td class="mono" style="font-size:11px;color:var(--text3)">${g.fecha}</td>
+              <td>${g.desc}</td>
+              <td style="font-size:12px;color:var(--text2)">${g.subcat}</td>
+              <td>${badgeCat(g.cat)}</td>
+              <td class="mono" style="color:var(--red)">-${fmt(g.monto)}</td>
+              <td><button class="del-btn" onclick="delGasto(${g.id})">✕</button></td>
+            </tr>
+          `,
             )
             .join("");
         } catch (e) {
@@ -1352,70 +1655,70 @@
         await api("DELETE", `/api/gastos/${id}`);
         toast("🗑 Eliminado");
         loadGastos();
-      }
-
-      async function exportarCSV() {
-        const gs = await api("GET", `/api/gastos?mes=${mes}&anio=${anio}`);
-        const rows = [
-          ["Fecha", "Descripcion", "Subcategoria", "Categoria", "Monto"],
-        ];
-        gs.forEach((g) =>
-          rows.push([g.fecha, g.desc, g.subcat, g.cat, g.monto]),
-        );
-        const csv = rows.map((r) => r.join(",")).join("\n");
-        const a = document.createElement("a");
-        a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv" }));
-        a.download = `gastos_${mes}_${anio}.csv`;
-        a.click();
+        loadDashboard();
       }
 
       async function agregarAhorro() {
         const nombre = $("a-nombre").value.trim();
         const meta = parseFloat($("a-meta").value) || 0;
+
         if (!nombre || meta <= 0) {
           toast("Completá nombre y meta", false);
           return;
         }
+
         await api("POST", "/api/ahorros", {
+          usuario,
           nombre,
           meta,
           inicial: parseFloat($("a-inicial").value) || 0,
           mensual: parseFloat($("a-mensual").value) || 0,
         });
+
         $("a-nombre").value = "";
         $("a-meta").value = "";
         $("a-inicial").value = "";
         $("a-mensual").value = "";
         toast("✅ Meta creada");
         loadAhorros();
+        loadDashboard();
       }
 
       async function registrarAporte() {
         const meta_id = parseInt($("ap-sel").value);
         const monto = parseFloat($("ap-monto").value) || 0;
+
         if (!meta_id || monto <= 0) {
           toast("Seleccioná meta y monto", false);
           return;
         }
+
         await api("POST", "/api/ahorros/aportes", {
           meta_id,
           monto,
           nota: $("ap-nota").value,
         });
+
         $("ap-monto").value = "";
         $("ap-nota").value = "";
         toast("✅ Aporte registrado");
         loadAhorros();
+        loadDashboard();
       }
 
       async function loadAhorros() {
-        const list = await api("GET", "/api/ahorros");
+        const list = await api(
+          "GET",
+          `/api/ahorros?usuario=${encodeURIComponent(usuario)}`,
+        );
+
         $("ap-sel").innerHTML = list
           .map((a) => `<option value="${a.id}">${a.nombre}</option>`)
           .join("");
+
         $("ahorros-list").innerHTML =
           list.length === 0
-            ? '<div class="empty">No hay metas. ¡Creá la primera!</div>'
+            ? '<div class="empty">No hay metas todavía.</div>'
             : list
                 .map((a) => {
                   const p = Math.min(
@@ -1423,24 +1726,26 @@
                     Math.round((a.total_ahorrado / a.meta) * 100),
                   );
                   const rest = Math.max(0, a.meta - a.total_ahorrado);
-                  const meses =
+                  const mesesRest =
                     a.mensual > 0 ? Math.ceil(rest / a.mensual) : "∞";
-                  return `<div class="goal-card">
-          <div class="goal-header">
-            <div style="font-size:14px;font-weight:500">${a.nombre}</div>
-            <div style="display:flex;gap:8px;align-items:center">
-              <span class="mono" style="font-size:11px;color:var(--text3)">${meses} meses restantes</span>
-              <button class="btn btn-danger btn-sm" onclick="delAhorro(${a.id})">✕</button>
-            </div>
-          </div>
-          <div class="progress-bar"><div class="progress-fill" style="width:${p}%"></div></div>
-          <div style="display:flex;justify-content:space-between;font-size:11px;font-family:var(--mono);color:var(--text3);margin-top:4px">
-            <span>${fmt(a.total_ahorrado)} ahorrado</span>
-            <span style="color:var(--accent)">${p}%</span>
-            <span>meta ${fmt(a.meta)}</span>
-          </div>
-          <div style="font-size:11px;color:var(--text3);font-family:var(--mono);margin-top:6px">Aporte mensual: ${fmt(a.mensual)} · Falta: ${fmt(rest)}</div>
-        </div>`;
+
+                  return `
+                  <div class="goal-card">
+                    <div class="goal-header">
+                      <div style="font-size:14px;font-weight:500">${a.nombre}</div>
+                      <div style="display:flex;gap:8px;align-items:center">
+                        <span class="mono" style="font-size:11px;color:var(--text3)">${mesesRest} meses restantes</span>
+                        <button class="btn btn-danger btn-sm" onclick="delAhorro(${a.id})">✕</button>
+                      </div>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:${p}%"></div></div>
+                    <div style="display:flex;justify-content:space-between;font-size:11px;font-family:var(--mono);color:var(--text3);margin-top:4px">
+                      <span>${fmt(a.total_ahorrado)} ahorrado</span>
+                      <span style="color:var(--accent)">${p}%</span>
+                      <span>meta ${fmt(a.meta)}</span>
+                    </div>
+                  </div>
+                `;
                 })
                 .join("");
       }
@@ -1449,29 +1754,35 @@
         await api("DELETE", `/api/ahorros/${id}`);
         toast("🗑 Eliminada");
         loadAhorros();
+        loadDashboard();
       }
 
       async function agregarDeuda() {
         const nombre = $("deu-nombre").value.trim();
         const saldo = parseFloat($("deu-saldo").value) || 0;
         const pago = parseFloat($("deu-pago").value) || 0;
+
         if (!nombre || saldo <= 0) {
           toast("Completá nombre y saldo", false);
           return;
         }
+
         await api("POST", "/api/deudas", {
+          usuario,
           nombre,
           saldo,
           pago_min: pago,
           interes: parseFloat($("deu-int").value) || 0,
           estrategia: $("deu-est").value,
         });
+
         $("deu-nombre").value = "";
         $("deu-saldo").value = "";
         $("deu-pago").value = "";
         $("deu-int").value = "";
         toast("✅ Deuda agregada");
         loadDeudas();
+        loadDashboard();
       }
 
       async function pagarDeuda(id, nombre, pagoMin) {
@@ -1479,127 +1790,205 @@
           prompt(`¿Cuánto pagaste a "${nombre}"?`, pagoMin),
         );
         if (!monto || monto <= 0) return;
-        const r = await api("POST", `/api/deudas/${id}/pago`, { monto });
+
+        const r = await api("POST", `/api/deudas/${id}/pagar`, { monto });
+
         if (r.saldo === 0) toast(`🎉 ¡Deuda "${nombre}" pagada!`);
         else toast("✅ Pago registrado");
+
         loadDeudas();
+        loadDashboard();
       }
 
       async function loadDeudas() {
-        const list = await api("GET", "/api/deudas");
-        $("deudas-list").innerHTML =
-          list.length === 0
-            ? '<div class="empty">¡Sin deudas! 🎉</div>'
-            : `<div class="card"><div class="card-title">Tus deudas
-        <span class="mono" style="font-size:11px;color:var(--text3)">Total: ${fmt(list.reduce((s, d) => s + d.saldo, 0))}</span>
-      </div>
-      ${list
-        .map((d, i) => {
-          const p =
-            d.saldo > 0
-              ? Math.min(
-                  100,
-                  Math.round((d.pagado / (d.saldo + d.pagado)) * 100),
-                )
-              : 100;
-          const meses = d.pago_min > 0 ? Math.ceil(d.saldo / d.pago_min) : "∞";
-          return `<div style="padding:14px 0;border-bottom:1px solid var(--border)">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-            <div>
-              <span style="font-size:13px;font-weight:500">${i === 0 ? "🎯 " : ""}${d.nombre}</span>
-              <span class="mono" style="font-size:11px;color:var(--text3);margin-left:8px">${d.interes}% · ${d.estrategia}</span>
+        const list = await api(
+          "GET",
+          `/api/deudas?usuario=${encodeURIComponent(usuario)}`,
+        );
+        const resumen = await api(
+          "GET",
+          `/api/resumen?usuario=${encodeURIComponent(usuario)}&mes=${mes}&anio=${anio}`,
+        );
+
+        // Mostrar panel de distribucion si hay deudas
+        if (list.length > 0 && resumen.ingreso > 0) {
+          $("deuda-panel").style.display = "block";
+          $("dp-pago-min").textContent = fmt(resumen.pago_minimo_total);
+          $("dp-ocio").textContent = fmt(resumen.sugerido_ocio);
+          $("dp-ahorro").textContent = fmt(resumen.sugerido_ahorro);
+          $("dp-libre").textContent = fmt(resumen.sobrante);
+        } else {
+          $("deuda-panel").style.display = "none";
+        }
+
+        if (list.length === 0) {
+          $("deudas-list").innerHTML =
+            '<div class="empty">¡Sin deudas registradas! 🎉</div>';
+          return;
+        }
+
+        const totalSaldo = list.reduce((s, d) => s + d.saldo, 0);
+        const totalInteres = list.reduce(
+          (s, d) => s + (d.interes_total || 0),
+          0,
+        );
+        const maxMeses = Math.max(...list.map((d) => d.meses_restantes || 0));
+        const maxMesesLabel =
+          maxMeses > 0 ? `~${maxMeses} meses` : "sin proyección";
+
+        $("deudas-list").innerHTML = `
+          <div class="card">
+            <div class="card-title">
+              Tus deudas
+              <span class="mono" style="font-size:11px;color:var(--text3)">
+                Saldo total: ${fmt(totalSaldo)} · Interés estimado: ${fmt(totalInteres)} · Libre en ${maxMesesLabel}
+              </span>
             </div>
-            <div style="display:flex;gap:6px">
-              <button class="btn btn-secondary btn-sm" onclick="pagarDeuda(${d.id},'${d.nombre}',${d.pago_min})">✓ Pago</button>
-              <button class="btn btn-danger btn-sm" onclick="delDeuda(${d.id})">✕</button>
-            </div>
-          </div>
-          <div class="progress-bar"><div class="progress-fill" style="width:${p}%;background:var(--red)"></div></div>
-          <div style="display:flex;justify-content:space-between;font-size:11px;font-family:var(--mono);color:var(--text3);margin-top:4px">
-            <span>Saldo: ${fmt(d.saldo)}</span><span>Pago: ${fmt(d.pago_min)}/mes</span><span>~${meses} meses</span>
-          </div>
-        </div>`;
-        })
-        .join("")}</div>`;
+
+            ${list
+              .map((d, i) => {
+                const pct =
+                  d.saldo > 0
+                    ? Math.min(
+                        100,
+                        Math.round((d.pagado / (d.saldo + d.pagado)) * 100),
+                      )
+                    : 100;
+                const meses =
+                  d.meses_restantes > 0
+                    ? d.meses_restantes
+                    : d.pago_min > 0
+                      ? Math.ceil(d.saldo / d.pago_min)
+                      : "∞";
+                const aniosY =
+                  d.meses_restantes > 0
+                    ? `(${Math.floor(d.meses_restantes / 12)}a ${d.meses_restantes % 12}m)`
+                    : "";
+                const costoTotal = d.costo_total || d.saldo;
+                const interesTotal = d.interes_total || 0;
+
+                return `
+                <div style="padding:16px 0;border-bottom:1px solid var(--border)">
+                  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
+                    <div>
+                      <span style="font-size:14px;font-weight:500">${i === 0 ? "🎯 " : ""}${d.nombre}</span>
+                      <span class="mono" style="font-size:11px;color:var(--text3);margin-left:8px">${d.interes}% anual · ${d.estrategia}</span>
+                    </div>
+                    <div style="display:flex;gap:6px">
+                      <button class="btn btn-secondary btn-sm" onclick="pagarDeuda(${d.id},'${d.nombre}',${d.pago_min})">✓ Pago</button>
+                      <button class="btn btn-danger btn-sm" onclick="delDeuda(${d.id})">✕</button>
+                    </div>
+                  </div>
+
+                  <div class="progress-bar" style="margin-bottom:8px">
+                    <div class="progress-fill" style="width:${pct}%;background:var(--red)"></div>
+                  </div>
+
+                  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px">
+                    <div style="background:var(--surface2);border-radius:8px;padding:10px 12px">
+                      <div style="font-size:10px;color:var(--text3);font-family:var(--mono);text-transform:uppercase;margin-bottom:4px">Saldo actual</div>
+                      <div style="font-size:14px;font-family:var(--mono);color:var(--red)">${fmt(d.saldo)}</div>
+                    </div>
+                    <div style="background:var(--surface2);border-radius:8px;padding:10px 12px">
+                      <div style="font-size:10px;color:var(--text3);font-family:var(--mono);text-transform:uppercase;margin-bottom:4px">Pago mínimo</div>
+                      <div style="font-size:14px;font-family:var(--mono);color:var(--text)">${fmt(d.pago_min)}/mes</div>
+                    </div>
+                    <div style="background:var(--surface2);border-radius:8px;padding:10px 12px">
+                      <div style="font-size:10px;color:var(--text3);font-family:var(--mono);text-transform:uppercase;margin-bottom:4px">Interés total</div>
+                      <div style="font-size:14px;font-family:var(--mono);color:var(--orange)">${fmt(interesTotal)}</div>
+                    </div>
+                    <div style="background:var(--surface2);border-radius:8px;padding:10px 12px">
+                      <div style="font-size:10px;color:var(--text3);font-family:var(--mono);text-transform:uppercase;margin-bottom:4px">Meses restantes</div>
+                      <div style="font-size:14px;font-family:var(--mono);color:var(--blue)">${meses} ${aniosY}</div>
+                    </div>
+                  </div>
+                </div>
+              `;
+              })
+              .join("")}
+          </div>`;
       }
 
       async function delDeuda(id) {
         await api("DELETE", `/api/deudas/${id}`);
         toast("🗑 Eliminada");
         loadDeudas();
+        loadDashboard();
       }
 
       async function loadTendencias() {
-        const hist = await api("GET", `/api/historico?anio=${anio}`);
+        const hist = await api(
+          "GET",
+          `/api/historico?usuario=${encodeURIComponent(usuario)}&anio=${anio}`,
+        );
         const resumen = await api(
           "GET",
-          `/api/resumen?mes=${mes}&anio=${anio}`,
+          `/api/resumen?usuario=${encodeURIComponent(usuario)}&mes=${mes}&anio=${anio}`,
         );
-        const ultimos6 = [];
-        for (let i = 5; i >= 0; i--) {
-          let m = mes - i,
-            a = anio;
-          if (m <= 0) {
-            m += 12;
-            a--;
-          }
-          const found = hist.find((h) => h.mes === m) || {
-            mes: m,
-            total_gastos: 0,
-          };
-          ultimos6.push({
-            label: MESES[m],
-            total: found.total_gastos,
-            active: m === mes,
-          });
+
+        let ahorroAcumulado = resumen.ahorro_total_actual || 0;
+        let deudaActual = resumen.deuda_total_actual || 0;
+        const ahorroMensualBase = resumen.sugerido_ahorro || 0;
+        const pagoDeudaBase = resumen.deudas.reduce(
+          (s, d) => s + (d.pago_min || 0),
+          0,
+        );
+
+        const ahorroData = [];
+        const deudaData = [];
+
+        for (let i = 1; i <= 6; i++) {
+          ahorroAcumulado += ahorroMensualBase;
+          ahorroData.push({ mes: i, valor: ahorroAcumulado });
+
+          deudaActual = Math.max(0, deudaActual - pagoDeudaBase);
+          deudaData.push({ mes: i, valor: deudaActual });
         }
-        const max = Math.max(...ultimos6.map((d) => d.total), 1);
-        $("trend-chart").innerHTML = ultimos6
+
+        const maxA = Math.max(...ahorroData.map((d) => d.valor), 1);
+        const maxD = Math.max(...deudaData.map((d) => d.valor), 1);
+
+        $("ahorro-chart").innerHTML = ahorroData
           .map((d) => {
-            const h = Math.max(4, Math.round((d.total / max) * 80));
-            return `<div class="trend-col">
-      <div class="mono" style="font-size:9px;color:var(--text3)">${d.total > 0 ? fmt(d.total).replace(moneda, "") : ""}</div>
-      <div class="trend-bar" style="height:${h}px;background:${d.active ? "var(--accent)" : "var(--surface2)"}"></div>
-      <div class="trend-lbl">${d.label}</div>
-    </div>`;
+            const h = Math.max(4, Math.round((d.valor / maxA) * 80));
+            return `
+            <div class="trend-col">
+              <div class="mono" style="font-size:9px;color:var(--text3)">${d.valor > 0 ? fmt(d.valor).replace(moneda, "") : ""}</div>
+              <div class="trend-bar" style="height:${h}px;background:var(--accent)"></div>
+              <div class="trend-lbl">M${d.mes}</div>
+            </div>
+          `;
           })
           .join("");
-        const catMap = {};
-        resumen.gastos.forEach((g) => {
-          catMap[g.subcat] = (catMap[g.subcat] || 0) + g.monto;
-        });
-        const sorted = Object.entries(catMap)
-          .sort((a, b) => b[1] - a[1])
-          .slice(0, 8);
-        const totalCat = sorted.reduce((s, [, v]) => s + v, 0);
-        $("cat-breakdown").innerHTML =
-          sorted.length === 0
-            ? '<div class="empty">Sin datos</div>'
-            : sorted
-                .map(([k, v]) => {
-                  const p = Math.round((v / totalCat) * 100);
-                  return `<div style="margin-bottom:10px">
-          <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px">
-            <span style="color:var(--text2)">${k}</span>
-            <span class="mono" style="font-size:11px;color:var(--text3)">${fmt(v)} (${p}%)</span>
-          </div>
-          <div class="bar-track"><div class="bar-fill" style="width:${p}%;background:var(--blue)"></div></div>
-        </div>`;
-                })
-                .join("");
+
+        $("deuda-chart").innerHTML = deudaData
+          .map((d) => {
+            const h = Math.max(4, Math.round((d.valor / maxD) * 80));
+            return `
+            <div class="trend-col">
+              <div class="mono" style="font-size:9px;color:var(--text3)">${d.valor > 0 ? fmt(d.valor).replace(moneda, "") : ""}</div>
+              <div class="trend-bar" style="height:${h}px;background:var(--red)"></div>
+              <div class="trend-lbl">M${d.mes}</div>
+            </div>
+          `;
+          })
+          .join("");
+
         $("hist-body").innerHTML =
           hist
             .filter((h) => h.ingreso > 0 || h.total_gastos > 0)
             .map((h) => {
               const bal = h.ingreso - h.total_gastos;
-              return `<tr>
-      <td class="mono" style="font-size:12px">${MESES[h.mes]} ${h.anio}</td>
-      <td class="mono">${fmt(h.ingreso)}</td>
-      <td class="mono" style="color:var(--accent)">${fmt(h.necesidades)}</td>
-      <td class="mono" style="color:var(--blue)">${fmt(h.deseos)}</td>
-      <td class="mono" style="color:var(--orange)">${fmt(h.ahorro_deuda)}</td>
-      <td class="mono" style="color:${bal >= 0 ? "var(--accent)" : "var(--red)"}">${bal >= 0 ? "+" : ""}${fmt(bal)}</td>
-    </tr>`;
+              return `
+              <tr>
+                <td class="mono" style="font-size:12px">${MESES[h.mes]} ${h.anio}</td>
+                <td class="mono">${fmt(h.ingreso)}</td>
+                <td class="mono" style="color:var(--accent)">${fmt(h.necesidades)}</td>
+                <td class="mono" style="color:var(--blue)">${fmt(h.deseos)}</td>
+                <td class="mono" style="color:var(--orange)">${fmt(h.ahorro_deuda)}</td>
+                <td class="mono" style="color:${bal >= 0 ? "var(--accent)" : "var(--red)"}">${bal >= 0 ? "+" : ""}${fmt(bal)}</td>
+              </tr>
+            `;
             })
             .join("") ||
           '<tr><td colspan="6" class="empty">Sin historial</td></tr>';
@@ -1608,21 +1997,26 @@
       async function sendChat() {
         const txt = $("chat-in").value.trim();
         if (!txt) return;
+
         addMsg(txt, "user");
         chatHistory.push({ role: "user", content: txt });
         $("chat-in").value = "";
         $("chat-btn").disabled = true;
+
         const typing = document.createElement("div");
         typing.className = "msg bot";
         typing.innerHTML = `<div class="msg-av">🤖</div><div class="msg-bubble"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>`;
         $("chat-msgs").appendChild(typing);
         $("chat-msgs").scrollTop = 9999;
+
         try {
           const r = await api("POST", "/api/chat", {
+            usuario,
             messages: chatHistory,
             mes,
             anio,
           });
+
           typing.remove();
           chatHistory.push({ role: "assistant", content: r.reply });
           addMsg(r.reply, "bot");
@@ -1630,6 +2024,7 @@
           typing.remove();
           addMsg("⚠️ " + e.message, "bot");
         }
+
         $("chat-btn").disabled = false;
       }
 
@@ -1650,13 +2045,13 @@
           e.preventDefault();
           sendChat();
         }
-        const ta = e.target;
-        ta.style.height = "auto";
-        ta.style.height = Math.min(ta.scrollHeight, 110) + "px";
       }
 
       async function loadConfig() {
-        const r = await api("GET", `/api/ingresos?mes=${mes}&anio=${anio}`);
+        const r = await api(
+          "GET",
+          `/api/ingresos?usuario=${encodeURIComponent(usuario)}&mes=${mes}&anio=${anio}`,
+        );
         $("cfg-ing").value = r.monto || "";
         $("mon-c").classList.toggle("active", moneda === "₡");
         $("mon-d").classList.toggle("active", moneda === "$");
@@ -1665,7 +2060,8 @@
 
       async function guardarIngreso() {
         const monto = parseFloat($("cfg-ing").value) || 0;
-        await api("PUT", "/api/ingresos", { mes, anio, monto });
+        await api("PUT", "/api/ingresos", { usuario, mes, anio, monto });
+        loadDashboard();
       }
 
       function setMoneda(m) {
@@ -1674,36 +2070,47 @@
         $("sb-mon").textContent = m === "₡" ? "₡ Colón" : "$ Dólar";
         $("mon-c").classList.toggle("active", m === "₡");
         $("mon-d").classList.toggle("active", m === "$");
+        const active = document.querySelector(".view.active,.chat-view.active");
+        if (active) go(active.id.replace("view-", ""));
       }
 
       async function agregarFactura() {
         const nombre = $("f-nombre").value.trim();
         const monto = parseFloat($("f-monto").value) || 0;
+
         if (!nombre || monto <= 0) {
           toast("Completá nombre y monto", false);
           return;
         }
-        await api("POST", "/api/facturas", { nombre, monto });
+
+        await api("POST", "/api/facturas", { usuario, nombre, monto });
         $("f-nombre").value = "";
         $("f-monto").value = "";
         toast("✅ Factura agregada");
         loadFacturas();
+        loadDashboard();
       }
 
       async function loadFacturas() {
-        const list = await api("GET", "/api/facturas");
+        const list = await api(
+          "GET",
+          `/api/facturas?usuario=${encodeURIComponent(usuario)}`,
+        );
+
         $("facturas-list").innerHTML =
           list.length === 0
             ? '<div style="color:var(--text3);font-size:12px;font-family:var(--mono);margin-bottom:10px">Sin facturas fijas</div>'
             : list
                 .map(
-                  (f) => `<div class="cfg-row" style="padding:8px 0">
-        <div style="display:flex;gap:12px;align-items:center">
-          <span>${f.nombre}</span>
-          <span class="mono" style="font-size:12px;color:var(--orange)">${fmt(f.monto)}</span>
-        </div>
-        <button class="del-btn" onclick="delFactura(${f.id})">✕</button>
-      </div>`,
+                  (f) => `
+                <div class="cfg-row" style="padding:8px 0">
+                  <div style="display:flex;gap:12px;align-items:center">
+                    <span>${f.nombre}</span>
+                    <span class="mono" style="font-size:12px;color:var(--orange)">${fmt(f.monto)}</span>
+                  </div>
+                  <button class="del-btn" onclick="delFactura(${f.id})">✕</button>
+                </div>
+              `,
                 )
                 .join("");
       }
@@ -1711,22 +2118,22 @@
       async function delFactura(id) {
         await api("DELETE", `/api/facturas/${id}`);
         loadFacturas();
+        loadDashboard();
       }
 
-      async function borrarTodo() {
-        if (!confirm("¿Seguro? Esto borra TODOS los datos.")) return;
-        toast(
-          "Para borrar todo, eliminá el archivo finanzas.db y reiniciá.",
-          false,
-        );
+      function initAfterLogin() {
+        $("sb-mon").textContent = moneda === "₡" ? "₡ Colón" : "$ Dólar";
+        $("sel-mes").value = mes;
+        $("sel-anio").value = anio;
+        $("welcome-user").textContent = `Sesión: ${usuario}`;
+        loadDashboard();
       }
 
       function init() {
         moneda = localStorage.getItem("moneda") || "₡";
-        $("sb-mon").textContent = moneda === "₡" ? "₡ Colón" : "$ Dólar";
-        $("sel-mes").value = mes;
-        $("sel-anio").value = anio;
-        loadDashboard();
+        usuario = localStorage.getItem("usuario") || "";
+
+        $("login-screen").style.display = "flex";
       }
 
       init();
